@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ContosoUniversity.Models;
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -15,9 +16,19 @@
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Build it from scratch</h2>
-        <p>You can build the application by following the steps in the tutorial series on the ASP.NET site.</p>
-        <p><a class="btn btn-default" href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/">See the tutorial &raquo;</a></p>
+        @if (Session["User"] != null)
+        {
+            Person user = (Person)Session["User"];
+            <p>Hello @user.FirstMidName.ToUpper() @user.LastName.ToUpper()</p>
+            if (user is Student)
+            {
+                <p>You're a Student</p>
+            }
+            else if (user is Instructor)
+            {
+                <p>You're a Instructor</p>
+            }
+        }
     </div>
     <div class="col-md-4">
         <h2>Download it</h2>

@@ -116,6 +116,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -155,6 +156,18 @@
     <Compile Include="Migrations\201411022351064_Inheritance.Designer.cs">
       <DependentUpon>201411022351064_Inheritance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041301158_PersonAccount.cs" />
+    <Compile Include="Migrations\201902041301158_PersonAccount.Designer.cs">
+      <DependentUpon>201902041301158_PersonAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041303067_PersonAccount1.cs" />
+    <Compile Include="Migrations\201902041303067_PersonAccount1.Designer.cs">
+      <DependentUpon>201902041303067_PersonAccount1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041304483_PersonAccountReq.cs" />
+    <Compile Include="Migrations\201902041304483_PersonAccountReq.Designer.cs">
+      <DependentUpon>201902041304483_PersonAccountReq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -167,6 +180,8 @@
     <Compile Include="ViewModels\AssignedCourseData.cs" />
     <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
     <Compile Include="ViewModels\InstructorIndexData.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PersonRegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -195,7 +210,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -231,6 +248,8 @@
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Course\UpdateCourseCredits.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +276,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411022351064_Inheritance.resx">
       <DependentUpon>201411022351064_Inheritance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041301158_PersonAccount.resx">
+      <DependentUpon>201902041301158_PersonAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041303067_PersonAccount1.resx">
+      <DependentUpon>201902041303067_PersonAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041304483_PersonAccountReq.resx">
+      <DependentUpon>201902041304483_PersonAccountReq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

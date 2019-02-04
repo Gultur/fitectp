@@ -31,9 +31,11 @@ namespace ContosoUniversity.Tests.Controllers
         {
             string expectedLastName = "Dubois";
             string expectedFirstName = "George";
+            string expectedLogin = "MockLogin";
+            string expectedPassword = "MockPassword";
 
             EntityGenerator generator = new EntityGenerator(dbContext);
-            Student student = generator.CreateStudent(expectedLastName, expectedFirstName);
+            Student student = generator.CreateStudent(expectedLastName, expectedFirstName, expectedLogin, expectedPassword);
 
             var result = controllerToTest.Details(student.ID) as ViewResult;
             var resultModel = result.Model as Student;
@@ -62,10 +64,12 @@ namespace ContosoUniversity.Tests.Controllers
             string expectedLastName = "Wood";
             string previousLastName = "Dubois";
             string previousFirstName = "George";
+            string previousLogin = "MockLogin";
+            string previousPassword = "MockPassword";
 
 
             EntityGenerator generator = new EntityGenerator(dbContext);
-            Student student = generator.CreateStudent(previousLastName, previousFirstName);
+            Student student = generator.CreateStudent(previousLastName, previousFirstName, previousLogin, previousPassword);
             student.LastName = expectedLastName;
 
             FormDataHelper.PopulateFormData(controllerToTest, student);

@@ -19,22 +19,22 @@ namespace ContosoUniversity.Migrations
         {
             var students = new List<Student>
             {
-                new Student { FirstMidName = "Carson",   LastName = "Alexander", 
-                    EnrollmentDate = DateTime.Parse("2010-09-01") },
-                new Student { FirstMidName = "Meredith", LastName = "Alonso",    
-                    EnrollmentDate = DateTime.Parse("2012-09-01") },
-                new Student { FirstMidName = "Arturo",   LastName = "Anand",     
-                    EnrollmentDate = DateTime.Parse("2013-09-01") },
-                new Student { FirstMidName = "Gytis",    LastName = "Barzdukas", 
-                    EnrollmentDate = DateTime.Parse("2012-09-01") },
-                new Student { FirstMidName = "Yan",      LastName = "Li",        
-                    EnrollmentDate = DateTime.Parse("2012-09-01") },
-                new Student { FirstMidName = "Peggy",    LastName = "Justice",   
-                    EnrollmentDate = DateTime.Parse("2011-09-01") },
-                new Student { FirstMidName = "Laura",    LastName = "Norman",    
-                    EnrollmentDate = DateTime.Parse("2013-09-01") },
-                new Student { FirstMidName = "Nino",     LastName = "Olivetto",  
-                    EnrollmentDate = DateTime.Parse("2005-09-01") }
+                new Student { FirstMidName = "Carson",   LastName = "Alexander",
+                    EnrollmentDate = DateTime.Parse("2010-09-01"), Login = "login1", Password = "password" },
+                new Student { FirstMidName = "Meredith", LastName = "Alonso",
+                    EnrollmentDate = DateTime.Parse("2012-09-01"), Login = "login2", Password = "password"  },
+                new Student { FirstMidName = "Arturo",   LastName = "Anand",
+                    EnrollmentDate = DateTime.Parse("2013-09-01"), Login = "login3", Password = "password"  },
+                new Student { FirstMidName = "Gytis",    LastName = "Barzdukas",
+                    EnrollmentDate = DateTime.Parse("2012-09-01"), Login = "login4", Password = "password"  },
+                new Student { FirstMidName = "Yan",      LastName = "Li",
+                    EnrollmentDate = DateTime.Parse("2012-09-01"), Login = "login5", Password = "password"  },
+                new Student { FirstMidName = "Peggy",    LastName = "Justice",
+                    EnrollmentDate = DateTime.Parse("2011-09-01"), Login = "login6", Password = "password"  },
+                new Student { FirstMidName = "Laura",    LastName = "Norman",
+                    EnrollmentDate = DateTime.Parse("2013-09-01"), Login = "login7", Password = "password"  },
+                new Student { FirstMidName = "Nino",     LastName = "Olivetto",
+                    EnrollmentDate = DateTime.Parse("2005-09-01"), Login = "login8", Password = "password"  }
             };
 
 
@@ -43,33 +43,33 @@ namespace ContosoUniversity.Migrations
 
             var instructors = new List<Instructor>
             {
-                new Instructor { FirstMidName = "Kim",     LastName = "Abercrombie", 
-                    HireDate = DateTime.Parse("1995-03-11") },
-                new Instructor { FirstMidName = "Fadi",    LastName = "Fakhouri",    
-                    HireDate = DateTime.Parse("2002-07-06") },
-                new Instructor { FirstMidName = "Roger",   LastName = "Harui",       
-                    HireDate = DateTime.Parse("1998-07-01") },
-                new Instructor { FirstMidName = "Candace", LastName = "Kapoor",      
-                    HireDate = DateTime.Parse("2001-01-15") },
-                new Instructor { FirstMidName = "Roger",   LastName = "Zheng",      
-                    HireDate = DateTime.Parse("2004-02-12") }
+                new Instructor { FirstMidName = "Kim",     LastName = "Abercrombie",
+                    HireDate = DateTime.Parse("1995-03-11"), Login = "login9", Password = "password"   },
+                new Instructor { FirstMidName = "Fadi",    LastName = "Fakhouri",
+                    HireDate = DateTime.Parse("2002-07-06"), Login = "login10", Password = "password"   },
+                new Instructor { FirstMidName = "Roger",   LastName = "Harui",
+                    HireDate = DateTime.Parse("1998-07-01"), Login = "login11", Password = "password"   },
+                new Instructor { FirstMidName = "Candace", LastName = "Kapoor",
+                    HireDate = DateTime.Parse("2001-01-15"), Login = "login12", Password = "password"   },
+                new Instructor { FirstMidName = "Roger",   LastName = "Zheng",
+                    HireDate = DateTime.Parse("2004-02-12"), Login = "login13", Password = "password"   }
             };
             instructors.ForEach(s => context.Instructors.AddOrUpdate(p => p.LastName, s));
             context.SaveChanges();
 
             var departments = new List<Department>
             {
-                new Department { Name = "English",     Budget = 350000, 
-                    StartDate = DateTime.Parse("2007-09-01"), 
+                new Department { Name = "English",     Budget = 350000,
+                    StartDate = DateTime.Parse("2007-09-01"),
                     InstructorID  = instructors.Single( i => i.LastName == "Abercrombie").ID },
-                new Department { Name = "Mathematics", Budget = 100000, 
-                    StartDate = DateTime.Parse("2007-09-01"), 
+                new Department { Name = "Mathematics", Budget = 100000,
+                    StartDate = DateTime.Parse("2007-09-01"),
                     InstructorID  = instructors.Single( i => i.LastName == "Fakhouri").ID },
-                new Department { Name = "Engineering", Budget = 350000, 
-                    StartDate = DateTime.Parse("2007-09-01"), 
+                new Department { Name = "Engineering", Budget = 350000,
+                    StartDate = DateTime.Parse("2007-09-01"),
                     InstructorID  = instructors.Single( i => i.LastName == "Harui").ID },
-                new Department { Name = "Economics",   Budget = 100000, 
-                    StartDate = DateTime.Parse("2007-09-01"), 
+                new Department { Name = "Economics",   Budget = 100000,
+                    StartDate = DateTime.Parse("2007-09-01"),
                     InstructorID  = instructors.Single( i => i.LastName == "Kapoor").ID }
             };
             departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
@@ -79,31 +79,31 @@ namespace ContosoUniversity.Migrations
             {
                 new Course {CourseID = 1050, Title = "Chemistry",      Credits = 3,
                   DepartmentID = departments.Single( s => s.Name == "Engineering").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 4022, Title = "Microeconomics", Credits = 3,
                   DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 4041, Title = "Macroeconomics", Credits = 3,
                   DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 1045, Title = "Calculus",       Credits = 4,
                   DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 3141, Title = "Trigonometry",   Credits = 4,
                   DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 2021, Title = "Composition",    Credits = 3,
                   DepartmentID = departments.Single( s => s.Name == "English").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
                 new Course {CourseID = 2042, Title = "Literature",     Credits = 4,
                   DepartmentID = departments.Single( s => s.Name == "English").DepartmentID,
-                  Instructors = new List<Instructor>() 
+                  Instructors = new List<Instructor>()
                 },
             };
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
@@ -111,14 +111,14 @@ namespace ContosoUniversity.Migrations
 
             var officeAssignments = new List<OfficeAssignment>
             {
-                new OfficeAssignment { 
-                    InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID, 
+                new OfficeAssignment {
+                    InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID,
                     Location = "Smith 17" },
-                new OfficeAssignment { 
-                    InstructorID = instructors.Single( i => i.LastName == "Harui").ID, 
+                new OfficeAssignment {
+                    InstructorID = instructors.Single( i => i.LastName == "Harui").ID,
                     Location = "Gowan 27" },
-                new OfficeAssignment { 
-                    InstructorID = instructors.Single( i => i.LastName == "Kapoor").ID, 
+                new OfficeAssignment {
+                    InstructorID = instructors.Single( i => i.LastName == "Kapoor").ID,
                     Location = "Thompson 304" },
             };
             officeAssignments.ForEach(s => context.OfficeAssignments.AddOrUpdate(p => p.InstructorID, s));
@@ -138,59 +138,59 @@ namespace ContosoUniversity.Migrations
 
             var enrollments = new List<Enrollment>
             {
-                new Enrollment { 
-                    StudentID = students.Single(s => s.LastName == "Alexander").ID, 
-                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID, 
-                    Grade = Grade.A 
+                new Enrollment {
+                    StudentID = students.Single(s => s.LastName == "Alexander").ID,
+                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    Grade = Grade.A
                 },
-                 new Enrollment { 
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                    CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID, 
-                    Grade = Grade.C 
-                 },                            
-                 new Enrollment { 
+                    CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID,
+                    Grade = Grade.C
+                 },
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                    CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID, 
+                    CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID,
                     Grade = Grade.B
                  },
-                 new Enrollment { 
+                 new Enrollment {
                      StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID, 
-                    Grade = Grade.B 
+                    CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID,
+                    Grade = Grade.B
                  },
-                 new Enrollment { 
+                 new Enrollment {
                      StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID, 
-                    Grade = Grade.B 
+                    CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID,
+                    Grade = Grade.B
                  },
                  new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Composition" ).CourseID, 
-                    Grade = Grade.B 
+                    CourseID = courses.Single(c => c.Title == "Composition" ).CourseID,
+                    Grade = Grade.B
                  },
-                 new Enrollment { 
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Anand").ID,
                     CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID
                  },
-                 new Enrollment { 
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Anand").ID,
                     CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
-                    Grade = Grade.B         
+                    Grade = Grade.B
                  },
-                new Enrollment { 
+                new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Barzdukas").ID,
                     CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
-                    Grade = Grade.B         
+                    Grade = Grade.B
                  },
-                 new Enrollment { 
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Li").ID,
                     CourseID = courses.Single(c => c.Title == "Composition").CourseID,
-                    Grade = Grade.B         
+                    Grade = Grade.B
                  },
-                 new Enrollment { 
+                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Justice").ID,
                     CourseID = courses.Single(c => c.Title == "Literature").CourseID,
-                    Grade = Grade.B         
+                    Grade = Grade.B
                  }
             };
 
