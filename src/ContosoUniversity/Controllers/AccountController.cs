@@ -63,12 +63,12 @@ namespace ContosoUniversity.Controllers
                         }
 
                         db.SaveChanges();
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                     else
                     {
                         TempData["LoginError"] = "This login is not available";
-                        return RedirectToAction("Register", "Account");
+                        return RedirectToAction(nameof(AccountController.Register), "Account");
                     }
                 }
             }
@@ -77,7 +77,7 @@ namespace ContosoUniversity.Controllers
 
                 ModelState.AddModelError("Error", "Error");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
 
@@ -100,13 +100,13 @@ namespace ContosoUniversity.Controllers
                     {
                         Session["User"] = personConnecting;
                         ViewBag.User = Session["User"];
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                     else
                     {
                         Session["User"] = null;
                         TempData["LoginError"] = "Invalid Credentials";
-                        return RedirectToAction("Login", "Account");
+                        return RedirectToAction(nameof(AccountController.Login), "Account");
                     }
                 }
             }
@@ -117,13 +117,13 @@ namespace ContosoUniversity.Controllers
             }
             Session["User"] = null;
             TempData["LoginError"] = "Invalid Credentials";
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         public ActionResult Logout()
         {
             Session["User"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         private bool IsLoginValid(string login)
