@@ -37,6 +37,13 @@ namespace ContosoUniversity.ViewModels
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Your password must contains at least contains 6 characters")]
+        [Display(Name = "Password Confirmation")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string PasswordConfirmation { get; set; }
+
+        [Required]
         public RolesEnum Roles { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace ContosoUniversity.Controllers
                 {
                     if (IsLoginValid(newAccount.Login))
                     {
-                        // TODO : mettre à part dans un service /couche de données
+                        // TODO : Model creation need to be in a other layer
                         if (newAccount.Roles == RolesEnum.Student)
                         {
                             Student newStudent = new Student();
@@ -134,6 +134,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // Service encodage - Helper?
+        // TODO : Move to external service
         private static string GenerateSHA256String(string inputString)
         {
             SHA256 sha256 = SHA256Managed.Create();
