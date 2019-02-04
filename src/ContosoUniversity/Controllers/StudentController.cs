@@ -1,7 +1,9 @@
 ﻿using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using ContosoUniversity.ViewModels;
 using PagedList;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -79,6 +81,34 @@ namespace ContosoUniversity.Controllers
                 return HttpNotFound();
             }
             return View(student);
+        }
+
+        public ActionResult Enrollment()
+        {
+            //if (Session["user"] != null && Session["User"] is Student)
+            //{
+                Student StudentConnected = (Student)Session["User"];
+                StudentEnrollmentsViewModel model = new StudentEnrollmentsViewModel();
+                model.Student = db.Students.FirstOrDefault(s => s.ID == 1);
+
+                List<Course> CoursesEnrolled= new List<Course>();
+                foreach(Enrollment enr in model.Student.Enrollments)
+                {
+                    CoursesEnrolled.Add(db.Courses.FirstOrDefault(c => c.CourseID == enr.CourseID));
+                }
+                
+
+                List<int> EnrolledCoursesId = CoursesEnrolled.Select(q => q.CourseID).ToList();
+                var temp = db.Courses.Where(q => !EnrolledCoursesId.Contains(q.CourseID));
+
+                List<Course> CoursesNotEnrolled = temp.ToList();
+               // model.CoursesList = db.Courses.ToList();
+                model.CoursesList = CoursesNotEnrolled;
+
+                 return View(model: model); 
+            //}
+
+            //return RedirectToAction("Index", "Home");
         }
 
         // GET: Student/Create
