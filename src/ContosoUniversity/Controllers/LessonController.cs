@@ -48,7 +48,7 @@ namespace ContosoUniversity.Controllers
             {
                 if (StartHour >= EndHour)
                 {
-                    TempData["LoginError"] = "Endhour must be after StartHour";
+                    TempData["CreateError"] = "Endhour must be after StartHour";
                     return RedirectToAction(nameof(LessonController.Create), "Lesson");
 
                 }

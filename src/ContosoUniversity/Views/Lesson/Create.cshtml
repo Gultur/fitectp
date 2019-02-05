@@ -13,6 +13,10 @@
 
 <div class="form-horizontal">
     <h4>CreateLessonViewModel</h4>
+    @if (TempData["EditError"] != null)
+    {
+        <p class="text-danger"> @TempData["EditError"] </p>
+    }
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -27,7 +31,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.Day,  new { @class = "form-control" } )
+            @Html.EnumDropDownListFor(model => model.Day, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
         </div>
     </div>
