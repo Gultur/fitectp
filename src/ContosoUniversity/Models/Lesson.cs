@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ContosoUniversity.Enum;
 
 namespace ContosoUniversity.Models
 {
@@ -11,9 +12,12 @@ namespace ContosoUniversity.Models
     {
         public int ID { get; set; }
 
+        [Required]
         public int InstructorId { get; set; }
+        [Required]
         public int CourseID { get; set; }
-        public DayOfWeek Day { get; set;}
+        [Required]
+        public DayOfCourse Day { get; set;}
         [Required]
         [Range(9, 18)]
         public int StartHour { get; set; }
