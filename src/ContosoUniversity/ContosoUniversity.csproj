@@ -121,6 +121,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
+    <Compile Include="Controllers\LessonController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\SchoolConfiguration.cs" />
     <Compile Include="DAL\SchoolContext.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\OfficeAssignment.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Student.cs" />
@@ -254,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Lesson\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
