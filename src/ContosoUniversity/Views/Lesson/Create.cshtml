@@ -13,9 +13,9 @@
 
 <div class="form-horizontal">
     <h4>CreateLessonViewModel</h4>
-    @if (TempData["EditError"] != null)
+    @if (TempData["CreateError"] != null)
     {
-        <p class="text-danger"> @TempData["EditError"] </p>
+        <p class="text-danger"> @TempData["CreateError"] </p>
     }
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

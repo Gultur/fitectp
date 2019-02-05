@@ -54,14 +54,25 @@ namespace ContosoUniversity.Controllers
                 }
                 else
                 {
-                    // TODO : Instructor ID must be ID of the connected Instructor
                     int CourseId = int.Parse(Course);
+                    // TODO : need to be in a differente layer, not in controller
+
                     Lesson lesson = new Lesson();
+                    // TODO : Instructor ID must be ID of the connected Instructor
+
                     lesson.InstructorID = 10;
                     lesson.Course = db.Courses.FirstOrDefault(c => c.CourseID == CourseId);
                     lesson.Day = Day;
                     lesson.StartHour = StartHour;
                     lesson.EndHour = EndHour;
+                    // TODO : Test if the lesson is valid
+
+                    if(!IsLessonValid(lesson))
+                    {
+                        TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                        return RedirectToAction(nameof(LessonController.Create), "Lesson");
+                    }
+
                     db.Lessons.Add(lesson);
 
 
@@ -109,6 +120,7 @@ namespace ContosoUniversity.Controllers
                     return RedirectToAction(nameof(LessonController.Edit), "Lesson", new { newLesson.LessonID });
 
                 }
+
                 Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == newLesson.LessonID);
                 lesson.StartHour = newLesson.StartHour;
                 lesson.EndHour = newLesson.EndHour;
@@ -154,6 +166,22 @@ namespace ContosoUniversity.Controllers
             {
                 return RedirectToAction("Delete", "Lesson", new {id}); ;
             }
+        }
+
+        public bool IsLessonValid(Lesson lesson)
+        {
+            // We need to check if a lesson with the same Instructor existe between StartHour and EndHour
+
+            List<Lesson> lessonsInstructors = db.Lessons.Where(l => l.InstructorID == lesson.InstructorID).ToList();
+            List<Lesson> lessonsSameDay = lessonsInstructors.Where(l => l.Day == lesson.Day).ToList();
+            List<Lesson> lessonsSameHours = lessonsSameDay.Where(l => (l.StartHour >= lesson.StartHour && l.StartHour <= lesson.EndHour)
+                    || (l.EndHour <= lesson.EndHour && l.EndHour >= lesson.StartHour)).ToList();
+
+            int count = db.Lessons.Where(l => l.InstructorID == lesson.InstructorID)
+                .Where(l => l.Day == lesson.Day).Where(l => (l.StartHour >= lesson.StartHour && l.StartHour <= lesson.EndHour)
+                    || (l.EndHour <= lesson.EndHour && l.EndHour >= lesson.StartHour)).ToList().Count;
+
+            return (count == 0);
         }
 
     }
