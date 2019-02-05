@@ -13,6 +13,7 @@ namespace ContosoUniversity.DAL
         public DbSet<Student> Students { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
 
         public SchoolContext() : base() { }
 
@@ -34,6 +35,5 @@ namespace ContosoUniversity.DAL
             modelBuilder.Entity<Department>().MapToStoredProcedures();
         }
 
-        public System.Data.Entity.DbSet<ContosoUniversity.Models.Lesson> Lessons { get; set; }
     }
 }

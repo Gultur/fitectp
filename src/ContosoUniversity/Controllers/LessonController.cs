@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContosoUniversity.DAL;
+using ContosoUniversity.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,12 @@ namespace ContosoUniversity.Controllers
 {
     public class LessonController : Controller
     {
+        private SchoolContext db = new SchoolContext();
+
         // GET: Lesson
         public ActionResult Index()
         {
-            return View();
+            return View(db.Lessons.ToList());
         }
 
         // GET: Lesson/Details/5
@@ -23,7 +27,13 @@ namespace ContosoUniversity.Controllers
         // GET: Lesson/Create
         public ActionResult Create()
         {
-            return View();
+            CreateLessonViewModel model = new CreateLessonViewModel();
+            // TODO : Add a query to select only Department Course for the instructor
+            // in a data layer
+            model.Day = new Enum.DayOfCourse();
+            model.CourseList = db.Courses.ToList();
+
+            return View(model);
         }
 
         // POST: Lesson/Create

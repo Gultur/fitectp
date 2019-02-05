@@ -124,6 +124,22 @@ namespace ContosoUniversity.Migrations
             officeAssignments.ForEach(s => context.OfficeAssignments.AddOrUpdate(p => p.InstructorID, s));
             context.SaveChanges();
 
+            var lessons = new List<Lesson>
+            {
+                new Lesson
+                {
+                    ID = 1,
+                    InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID,
+                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    Day = ContosoUniversity.Enum.DayOfCourse.Monday,
+                    StartHour = 10,
+                    EndHour = 12
+                }
+            };
+            lessons.ForEach(s => context.Lessons.AddOrUpdate(p => p.CourseID, s));
+            context.SaveChanges();
+
+
             AddOrUpdateInstructor(context, "Chemistry", "Kapoor");
             AddOrUpdateInstructor(context, "Chemistry", "Harui");
             AddOrUpdateInstructor(context, "Microeconomics", "Zheng");

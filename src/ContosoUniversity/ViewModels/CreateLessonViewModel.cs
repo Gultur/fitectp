@@ -10,10 +10,10 @@ using System.Web.Mvc;
 
 namespace ContosoUniversity.ViewModels
 {
-    public class CreateLessonViewModelcs
+    public class CreateLessonViewModel
     {
 
-        public List<Course> CourseList { get; set; }
+        public IEnumerable<Course> CourseList { get; set; }
 
         [Required]
         public DayOfCourse Day { get; set; }
