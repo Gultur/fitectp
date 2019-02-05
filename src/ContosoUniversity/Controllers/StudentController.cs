@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using ContosoUniversity.Filters;
 
 namespace ContosoUniversity.Controllers
 {
@@ -82,6 +83,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Student/Create
+        [AuthFilter(Role = "Student")]
         public ActionResult Create()
         {
             return View();
