@@ -1,8 +1,10 @@
 ﻿using ContosoUniversity.DAL;
+using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -31,25 +33,49 @@ namespace ContosoUniversity.Controllers
             // TODO : Add a query to select only Department Course for the instructor
             // in a data layer
             model.Day = new Enum.DayOfCourse();
-            model.CourseList = db.Courses.ToList();
+            model.Course = db.Courses.ToList();
 
             return View(model);
         }
 
-        // POST: Lesson/Create
+        // POST: Lesson/CreateLesson
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult CreateLesson(Enum.DayOfCourse Day, string Course, int StartHour, int EndHour)
         {
+            
             try
             {
-                // TODO: Add insert logic here
+                if (StartHour >= EndHour)
+                {
+                    TempData["LoginError"] = "Endhour must be after StartHour";
+                    return RedirectToAction(nameof(LessonController.Create), "Lesson");
 
-                return RedirectToAction("Index");
+                }
+                else
+                {
+                    int CourseId = int.Parse(Course);
+                    Lesson lesson = new Lesson();
+                    lesson.InstructorID = 10;
+                    lesson.Course = db.Courses.FirstOrDefault(c => c.CourseID == CourseId);
+                    lesson.Day = Day;
+                    lesson.StartHour = StartHour;
+                    lesson.EndHour = EndHour;
+                    db.Lessons.Add(lesson);
+
+
+                    db.SaveChanges();
+                    return RedirectToAction(nameof(LessonController.Index), "Lesson");
+                }  
+
+                
+
             }
-            catch
+            catch (Exception)
             {
-                return View();
+
+                ModelState.AddModelError("Error", "Error");
             }
+            return RedirectToAction(nameof(LessonController.Index), "Lesson");
         }
 
         // GET: Lesson/Edit/5
@@ -75,25 +101,37 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Lesson/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Lesson lesson = db.Lessons.Find(id);
+            if (lesson == null)
+            {
+                return HttpNotFound();
+            }
+            return View(lesson);
         }
 
-        // POST: Lesson/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: Lesson/DeleteLesson/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int? id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                Lesson lesson = db.Lessons.Find(id);
+                db.Lessons.Remove(lesson);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Delete", "Lesson", new {id}); ;
             }
         }
+
     }
 }

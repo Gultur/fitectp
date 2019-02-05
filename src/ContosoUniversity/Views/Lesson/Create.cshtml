@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateLesson", "Lesson"))
 {
     @Html.AntiForgeryToken()
 
@@ -17,10 +17,10 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CourseList, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Course, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CourseList, new SelectList(Model.CourseList, "CourseID", "Title"), htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.StartHour, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.Course, new SelectList(Model.Course, "CourseID", "Title"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Course, "", new { @class = "text-danger" })
         </div>
     </div>
 

@@ -13,15 +13,15 @@ namespace ContosoUniversity.ViewModels
     public class CreateLessonViewModel
     {
 
-        public IEnumerable<Course> CourseList { get; set; }
+        public IEnumerable<Course> Course { get; set; }
 
         [Required]
         public DayOfCourse Day { get; set; }
         [Required]
-        [Range(9, 18)]
+        [Range(8, 18)]
         public int StartHour { get; set; }
         [Required]
-        [Range(10, 19)]
+        [Range(9, 19)]
         public int EndHour { get; set; }
 
     }
