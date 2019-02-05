@@ -23,7 +23,8 @@ namespace ContosoUniversity.Controllers
         // GET: Lesson/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
+            return View(lesson);
         }
 
         // GET: Lesson/Create
@@ -81,12 +82,13 @@ namespace ContosoUniversity.Controllers
         // GET: Lesson/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
+            return View(lesson);
         }
 
         // POST: Lesson/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditLesson(int id, FormCollection collection)
         {
             try
             {
