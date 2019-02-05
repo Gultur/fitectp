@@ -54,6 +54,7 @@ namespace ContosoUniversity.Controllers
                 }
                 else
                 {
+                    // TODO : Instructor ID must be ID of the connected Instructor
                     int CourseId = int.Parse(Course);
                     Lesson lesson = new Lesson();
                     lesson.InstructorID = 10;
@@ -83,22 +84,42 @@ namespace ContosoUniversity.Controllers
         public ActionResult Edit(int id)
         {
             Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
-            return View(lesson);
+            EditLessonViewModel model = new EditLessonViewModel();
+            ViewBag.CourseName = lesson.Course.Title;
+            model.LessonID = lesson.ID;
+            model.CourseID = lesson.Course.CourseID;
+            model.Day = lesson.Day;
+            model.StartHour = lesson.StartHour;
+            model.EndHour = lesson.EndHour;
+        
+            return View(model);
         }
 
         // POST: Lesson/Edit/5
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditLesson(int id, FormCollection collection)
+        public ActionResult EditLesson(EditLessonViewModel newLesson)
         {
+
+
             try
             {
-                // TODO: Add update logic here
+                if (newLesson.StartHour >= newLesson.EndHour)
+                {
+                    TempData["EditError"] = "Endhour must be after StartHour";
+                    return RedirectToAction(nameof(LessonController.Edit), "Lesson", new { newLesson.LessonID });
 
-                return RedirectToAction("Index");
+                }
+                Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == newLesson.LessonID);
+                lesson.StartHour = newLesson.StartHour;
+                lesson.EndHour = newLesson.EndHour;
+                lesson.Day = newLesson.Day;
+                db.SaveChanges();
+
+                return RedirectToAction(nameof(LessonController.Details), "Lesson", new { lesson.ID});
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(LessonController.Index), "Lesson");
             }
         }
 

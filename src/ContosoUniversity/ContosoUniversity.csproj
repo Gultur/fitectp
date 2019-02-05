@@ -187,6 +187,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignedCourseData.cs" />
     <Compile Include="ViewModels\CreateLessonViewModel.cs" />
+    <Compile Include="ViewModels\EditLessonViewModel.cs" />
     <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
     <Compile Include="ViewModels\InstructorIndexData.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Views\Lesson\Create.cshtml" />
     <Content Include="Views\Lesson\Delete.cshtml" />
     <Content Include="Views\Lesson\Details.cshtml" />
+    <Content Include="Views\Lesson\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
