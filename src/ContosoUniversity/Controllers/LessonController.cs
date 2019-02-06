@@ -41,7 +41,7 @@ namespace ContosoUniversity.Controllers
 
         // POST: Lesson/CreateLesson
         [HttpPost]
-        public ActionResult CreateLesson(Enum.DayOfCourse Day, string Course, int StartHour, int EndHour)
+        public ActionResult CreateLesson(Enum.DayOfCourse Day, string Course, int StartHour, int EndHour, DateTime Launch)
         {
             
             try
@@ -65,6 +65,7 @@ namespace ContosoUniversity.Controllers
                     lesson.Day = Day;
                     lesson.StartHour = StartHour;
                     lesson.EndHour = EndHour;
+                    lesson.Launch = Launch;
                     // TODO : Test if the lesson is valid
 
                     if(!IsLessonValid(lesson))

@@ -18,6 +18,8 @@ namespace ContosoUniversity.ViewModels
         [Required]
         public DayOfCourse Day { get; set; }
         [Required]
+        public DateTime Launch { get; set; }
+        [Required]
         [Range(8, 18)]
         public int StartHour { get; set; }
         [Required]
