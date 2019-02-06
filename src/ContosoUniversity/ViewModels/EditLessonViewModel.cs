@@ -19,6 +19,11 @@ namespace ContosoUniversity.ViewModels
         [Required]
         public DayOfCourse Day { get; set; }
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Launch Date")]
+        public DateTime Launch { get; set; }
+        [Required]
         [Range(8, 18)]
         public int StartHour { get; set; }
         [Required]

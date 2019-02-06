@@ -131,6 +131,7 @@ namespace ContosoUniversity.Migrations
                     ID = 1,
                     InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID,
                     CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    Launch = DateTime.Parse("2019-06-02"),
                     Day = ContosoUniversity.Enum.DayOfCourse.Monday,
                     StartHour = 10,
                     EndHour = 12

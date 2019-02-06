@@ -35,7 +35,14 @@ namespace ContosoUniversity.Tests.Controllers
             Assert.That(false);
         }
         [Test]
-        public void Edit_Lesson_With_Inalid_Value_Fail()
+        public void Edit_Lesson_With_Invalid_Value_Fail()
+        {
+            Assert.That(false);
+        }
+
+        // Testing if an Instructor can create a lesson when he is not available at lesson hours
+        [Test]
+        public void Create_Lesson_Invalid_Planning_Fail()
         {
             Assert.That(false);
         }

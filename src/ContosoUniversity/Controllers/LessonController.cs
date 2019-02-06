@@ -100,6 +100,7 @@ namespace ContosoUniversity.Controllers
             ViewBag.CourseName = lesson.Course.Title;
             model.LessonID = lesson.ID;
             model.CourseID = lesson.Course.CourseID;
+            model.Launch = lesson.Launch;
             model.Day = lesson.Day;
             model.StartHour = lesson.StartHour;
             model.EndHour = lesson.EndHour;
@@ -111,7 +112,7 @@ namespace ContosoUniversity.Controllers
         [HttpPost, ActionName("Edit")]
         public ActionResult EditLesson(EditLessonViewModel newLesson)
         {
-
+            // TODO Move entitie code to another layer
 
             try
             {
@@ -125,6 +126,7 @@ namespace ContosoUniversity.Controllers
                 Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == newLesson.LessonID);
                 lesson.StartHour = newLesson.StartHour;
                 lesson.EndHour = newLesson.EndHour;
+                lesson.Launch = newLesson.Launch;
                 lesson.Day = newLesson.Day;
                 db.SaveChanges();
 
