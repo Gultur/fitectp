@@ -15,6 +15,10 @@ namespace ContosoUniversity.Controllers
 
         public ActionResult Index()
         {
+            // anonymous
+            // We need to send liste of courses
+
+            ViewBag.Courses = db.Courses.ToList();
             return View();
         }
 
