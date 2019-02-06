@@ -31,7 +31,7 @@ namespace ContosoUniversity.Controllers
                 {
                     InstructorApiViewModel.EnrollmentApiViewModel enrollment = new InstructorApiViewModel.EnrollmentApiViewModel();
                     enrollment.CourseId = course.CourseID;
-                    enrollment.Day = lesson.Day;
+                    enrollment.Day = lesson.Day.ToString();
                     enrollment.StartHour = lesson.StartHour;
                     enrollment.Duration = lesson.Length * 60;
                     instructorToSend.Schedule.Add(enrollment);

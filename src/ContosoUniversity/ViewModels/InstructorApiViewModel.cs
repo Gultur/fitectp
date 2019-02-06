@@ -14,7 +14,7 @@ namespace ContosoUniversity.ViewModels
         public class EnrollmentApiViewModel
         {
             public int CourseId { get; set; }
-            public DayOfCourse Day { get; set; }
+            public string Day { get; set; }
             public int StartHour { get; set; }
             public int Duration { get; set; }
         }
