@@ -41,12 +41,42 @@ namespace ContosoUniversity.Tests.Controllers
         }
 
         // Testing if an Instructor can create a lesson when he is not available at lesson hours
+        // 8 case
+
+        // Instructor has already some lessons in base
+        // Same instructor, other day , courses hours differents
         [Test]
-        public void Create_Lesson_Invalid_Planning_Fail()
+        public void Create_Lesson_SameInstr_OtherDay_Othershours_success()
+        {
+            Assert.That(false);
+        }
+        
+        // Same instructor, same day , courses hours differents
+        [Test]
+        public void Create_Lesson_SameInstr_SameDay_Othershours_success()
+        {
+            Assert.That(false);
+        } 
+        
+        // Same instructor, same day , courses hours presents in other lesson
+        [Test]
+        public void Create_Lesson_SameInstr_SameDay_ExistingHours_fail()
         {
             Assert.That(false);
         }
 
-        // A completer
+        // Same instructor, other day , courses hours presents in other lesson
+        [Test]
+        public void Create_Lesson_SameInstr_OtherDay_ExistingHours_success()
+        {
+            Assert.That(false);
+        }
+        
+        // No existing lesson with this instructors
+        [Test]
+        public void Create_Lesson_FirstLesson_OtherDay_Othershours_success()
+        {
+            Assert.That(false);
+        }
     }
 }

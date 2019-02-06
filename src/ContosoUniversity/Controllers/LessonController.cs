@@ -31,8 +31,7 @@ namespace ContosoUniversity.Controllers
         public ActionResult Create()
         {
             CreateLessonViewModel model = new CreateLessonViewModel();
-            // TODO : Add a query to select only Department Course for the instructor
-            // in a data layer
+
             model.Day = new Enum.DayOfCourse();
             model.Course = db.Courses.ToList();
 
@@ -66,7 +65,7 @@ namespace ContosoUniversity.Controllers
                     lesson.StartHour = StartHour;
                     lesson.EndHour = EndHour;
                     lesson.Launch = Launch;
-                    // TODO : Test if the lesson is valid
+                    
 
                     if(!IsLessonValid(lesson))
                     {

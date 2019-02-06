@@ -29,6 +29,28 @@ namespace ContosoUniversity.Tests.Controllers
             Assert.That(false);
         }
 
-        // A completer
+        [Test]
+        public void Register_With_Existing_Login_Fail()
+        {
+            Assert.That(false);
+        }
+
+        [Test]
+        public void Register_With_Bag_Password_Fail()
+        {
+            Assert.That(false);
+        }
+
+        [Test]
+        public void Register_With_Non_Existing_Login_And_Good_Password_Success()
+        {
+            Assert.That(false);
+        }
+
+        [Test]
+        public void Hashing_Same_word_Twice_Result_Two_Identical_Sha()
+        {
+            Assert.That(false);
+        }
     }
 }

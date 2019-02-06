@@ -24,8 +24,8 @@ namespace ContosoUniversity.Controllers
 
         public ActionResult Register()
         {
-            PersonRegisterViewModel model = new PersonRegisterViewModel();
-            return View(model);
+            //PersonRegisterViewModel model = new PersonRegisterViewModel();
+            return View(/*model*/);
         }
 
         [HttpPost]
