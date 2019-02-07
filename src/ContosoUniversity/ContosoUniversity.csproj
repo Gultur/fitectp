@@ -131,10 +131,10 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EnrollmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InstructorApiController.cs" />
+    <Compile Include="Controllers\Api\InstructorApiController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\LessonController.cs" />
-    <Compile Include="Controllers\StudentApiController.cs" />
+    <Compile Include="Controllers\Api\StudentApiController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\SchoolConfiguration.cs" />
     <Compile Include="DAL\SchoolContext.cs" />

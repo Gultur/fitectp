@@ -16,11 +16,11 @@ namespace ContosoUniversity.Controllers
     {
         private SchoolContext db = new SchoolContext();
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "Warning", "You have to indicate the id of the student" };
-        }
+        //// GET api/<controller>
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "Warning", "You have to indicate the id of the student" };
+        //}
 
         [Route("{id}")]
         [HttpGet]
