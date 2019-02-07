@@ -24,8 +24,7 @@ namespace ContosoUniversity.Controllers
 
         public ActionResult Register()
         {
-            //PersonRegisterViewModel model = new PersonRegisterViewModel();
-            return View(/*model*/);
+            return View();
         }
 
         [HttpPost]
@@ -63,6 +62,7 @@ namespace ContosoUniversity.Controllers
                         }
 
                         db.SaveChanges();
+                        Session["User"] = db.People.FirstOrDefault(p => p.Login == newAccount.Login);
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                     else

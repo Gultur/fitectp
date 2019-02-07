@@ -142,6 +142,7 @@
     <Compile Include="DAL\SchoolInterceptorLogging.cs" />
     <Compile Include="DAL\SchoolInterceptorTransientErrors.cs" />
     <Compile Include="Enum\EnumDayOfCourse.cs" />
+    <Compile Include="Enum\EnumRoles.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

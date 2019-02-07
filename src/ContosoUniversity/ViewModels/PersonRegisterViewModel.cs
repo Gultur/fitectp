@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContosoUniversity.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,11 +9,6 @@ using System.Web.Mvc;
 
 namespace ContosoUniversity.ViewModels
 {
-    public enum RolesEnum
-    {
-        Student,
-        Instructor
-    }
 
     public class PersonRegisterViewModel
     {
@@ -44,6 +40,6 @@ namespace ContosoUniversity.ViewModels
         public string PasswordConfirmation { get; set; }
 
         [Required]
-        public RolesEnum Roles { get; set; }
+        public EnumRoles Roles { get; set; }
     }
 }
