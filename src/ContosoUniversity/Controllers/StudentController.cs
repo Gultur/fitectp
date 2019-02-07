@@ -148,7 +148,7 @@ namespace ContosoUniversity.Controllers
                 {
                     db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", new { id = studentToUpdate.ID });
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {
