@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "IndexInstructor";
+}
+
+@using ContosoUniversity.Models;
+
+@{
+    ViewBag.Title = "IndexInstructor";
+}
+
+
+
+<div class="jumbotron">
+    <h1>Contoso University - Instructor</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Welcome to Contoso University</h2>
+
+        @if (Session["User"] != null)
+        {
+            Person user = (Person)Session["User"];
+            <p>Hello @user.FirstMidName.ToUpper() @user.LastName.ToUpper()</p>
+            if (user is Student)
+            {
+                <p>You're a Student</p>
+            }
+            else if (user is Instructor)
+            {
+                <p>You're a Instructor</p>
+            }
+        }
+    </div>
+
+    <div>
+
+
+    </div>
+
+
+</div>
+

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.DAL;
+using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
 
 
@@ -17,6 +18,19 @@ namespace ContosoUniversity.Controllers
         {
             // anonymous
             // We need to send liste of courses
+            if(Session["User"] != null)
+            {
+                Person user = (Person)Session["User"];
+
+                if(user is Student)
+                {
+                    return View("IndexStudent");
+                }
+                else if(user is Instructor)
+                {
+                    return View("IndexInstructor");
+                }
+            }
 
             ViewBag.Courses = db.Courses.ToList();
             return View();
