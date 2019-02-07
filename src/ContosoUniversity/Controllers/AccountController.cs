@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using ContosoUniversity.Enum;
+using ContosoUniversity.BAL;
+using ContosoUniversity.Services;
 
 namespace ContosoUniversity.Controllers
 {
@@ -37,31 +40,18 @@ namespace ContosoUniversity.Controllers
                 {
                     if (IsLoginValid(newAccount.Login))
                     {
-                        // TODO : Model creation need to be in a other layer
-                        if (newAccount.Roles == RolesEnum.Student)
+
+                        if (newAccount.Roles == EnumRoles.Student)
                         {
-                            Student newStudent = new Student();
-                            newStudent.LastName = newAccount.LastName;
-                            newStudent.FirstMidName = newAccount.FirstMidName;
-                            newStudent.Login = newAccount.Login;
-                            newStudent.Password = GenerateSHA256String(newAccount.Password);
-                            newStudent.EnrollmentDate = DateTime.Now;
-                            db.Students.Add(newStudent);
-
-
+                            StudentBAL bal = new StudentBAL();
+                            bal.CreateStudentRegistering(newAccount);
                         }
                         else
                         {
-                            Instructor newInstructor = new Instructor();
-                            newInstructor.LastName = newAccount.LastName;
-                            newInstructor.FirstMidName = newAccount.FirstMidName;
-                            newInstructor.Login = newAccount.Login;
-                            newInstructor.Password = GenerateSHA256String(newAccount.Password);
-                            newInstructor.HireDate = DateTime.Now;
-                            db.Instructors.Add(newInstructor);
+                            InstructorBAL bal = new InstructorBAL();
+                            bal.CreateInstructorRegistering(newAccount);
                         }
 
-                        db.SaveChanges();
                         Session["User"] = db.People.FirstOrDefault(p => p.Login == newAccount.Login);
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
@@ -96,7 +86,7 @@ namespace ContosoUniversity.Controllers
                 if (ModelState.IsValid)
                 {
                     Person personConnecting = this.db.People.FirstOrDefault(p => p.Login == logInfos.Login);
-                    if (personConnecting != null && personConnecting.Password == GenerateSHA256String(logInfos.Password))
+                    if (personConnecting != null && personConnecting.Password == HashService.GenerateSHA256String(logInfos.Password))
                     {
                         Session["User"] = personConnecting;
                         ViewBag.User = Session["User"];
@@ -133,14 +123,5 @@ namespace ContosoUniversity.Controllers
 
         }
 
-        // Service encodage - Helper?
-        // TODO : Move to external service
-        private static string GenerateSHA256String(string inputString)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes(inputString);
-            byte[] hash = sha256.ComputeHash(bytes);
-            return BitConverter.ToString(hash);
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContosoUniversity.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,7 +23,7 @@ namespace ContosoUniversity.ViewModels
         public string Password { get; set; }
 
         [Required]
-        public RolesEnum Roles { get; set; }
+        public EnumRoles Roles { get; set; }
 
     }
 }
