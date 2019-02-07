@@ -34,7 +34,37 @@
     </div>
 
     <div>
+        <table>
+            <thead>Agenda</thead>
+            <tr>
+                <th>Heure</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
 
+            @for (int heure = 8; heure <= 19; heure++)
+            {
+            <tr>
+                <td>@heure - @(heure + 1) </td>
+                <td>@heure - @(heure + 1) </td>
+                <td>@heure - @(heure + 1) </td>
+                <td>@heure - @(heure + 1) </td>
+                <td>@heure - @(heure + 1) </td>
+                <td>@heure - @(heure + 1) </td>
+
+
+
+
+            </tr>
+            }
+            @foreach (Lesson lesson in @ViewBag.Lessons)
+            {
+
+            }
+        </table>
 
     </div>
 

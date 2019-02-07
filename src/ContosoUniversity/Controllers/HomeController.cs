@@ -28,6 +28,12 @@ namespace ContosoUniversity.Controllers
                 }
                 else if(user is Instructor)
                 {
+                    List<Lesson> lessonsMonday = db.Lessons.Where(l => (l.InstructorID == user.ID && l.Day == Enum.DayOfCourse.Monday)).ToList();
+
+                    Dictionary<string, Dictionary<int, string>> agenda = new Dictionary<string, Dictionary<int, string>>;
+
+
+                    ViewBag.Lessons = lessonsMonday;
                     return View("IndexInstructor");
                 }
             }
