@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.DAL;
+using ContosoUniversity.Enum;
 using ContosoUniversity.Models;
 using ContosoUniversity.ViewModels;
 
@@ -28,12 +29,33 @@ namespace ContosoUniversity.Controllers
                 }
                 else if(user is Instructor)
                 {
-                    List<Lesson> lessonsMonday = db.Lessons.Where(l => (l.InstructorID == user.ID && l.Day == Enum.DayOfCourse.Monday)).ToList();
+                    // Temporary the ID is set manually
+                    // waiting to Session["User"].ID applied everywhere
 
-                    Dictionary<string, Dictionary<int, string>> agenda = new Dictionary<string, Dictionary<int, string>>;
+                    Dictionary<int, Dictionary<DayOfCourse, string>> agenda = new Dictionary<int, Dictionary<DayOfCourse, string>>();
 
 
-                    ViewBag.Lessons = lessonsMonday;
+
+                    for (int hour = 8; hour <= 19; hour++)
+                    {
+                        Dictionary<DayOfCourse, string> HourDay = new Dictionary<DayOfCourse, string>();
+                        foreach(DayOfCourse day in (DayOfCourse[]) System.Enum.GetValues(typeof(DayOfCourse)))
+                        {
+                            string libelle ="";
+                            Lesson lesson = db.Lessons.Where(l => (l.InstructorID == 10 && l.Day == day))
+                                .Where(l => (l.StartHour == hour || l.StartHour < hour && l.EndHour > hour))
+                                .FirstOrDefault();
+                            if(lesson != null)
+                            {
+                                libelle = lesson.Course.Title;
+                            }
+                            HourDay.Add(day, libelle);
+                        }
+                        agenda.Add(hour, HourDay);
+                    }
+
+
+                    ViewBag.Lessons = agenda;
                     return View("IndexInstructor");
                 }
             }

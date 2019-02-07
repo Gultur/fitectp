@@ -1,41 +1,25 @@
-﻿
+﻿@using ContosoUniversity.Models;
+@using ContosoUniversity.Enum;
 @{
     ViewBag.Title = "IndexInstructor";
 }
-
-@using ContosoUniversity.Models;
-
-@{
-    ViewBag.Title = "IndexInstructor";
-}
-
-
 
 <div class="jumbotron">
     <h1>Contoso University - Instructor</h1>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Welcome to Contoso University</h2>
 
-        @if (Session["User"] != null)
-        {
-            Person user = (Person)Session["User"];
-            <p>Hello @user.FirstMidName.ToUpper() @user.LastName.ToUpper()</p>
-            if (user is Student)
-            {
-                <p>You're a Student</p>
-            }
-            else if (user is Instructor)
-            {
-                <p>You're a Instructor</p>
-            }
-        }
-    </div>
 
     <div>
-        <table>
-            <thead>Agenda</thead>
+        <table class="table table-bordered">
+            <thead>
+                
+                @if (Session["User"] != null)
+                {
+                    Person user = (Person)Session["User"];
+                <p  class="text-center h3">Agenda - @user.FirstMidName.ToUpper() @user.LastName.ToUpper()</p>
+                }
+            </thead>
             <tr>
                 <th>Heure</th>
                 <th>Monday</th>
@@ -49,20 +33,14 @@
             {
             <tr>
                 <td>@heure - @(heure + 1) </td>
-                <td>@heure - @(heure + 1) </td>
-                <td>@heure - @(heure + 1) </td>
-                <td>@heure - @(heure + 1) </td>
-                <td>@heure - @(heure + 1) </td>
-                <td>@heure - @(heure + 1) </td>
 
-
-
-
+                <td>@ViewBag.Lessons[heure][DayOfCourse.Monday]</td>
+                <td>@ViewBag.Lessons[heure][DayOfCourse.Tuesday]</td>
+                <td>@ViewBag.Lessons[heure][DayOfCourse.Wednesday]</td>
+                <td>@ViewBag.Lessons[heure][DayOfCourse.Thursday]</td>
+                <td>@ViewBag.Lessons[heure][DayOfCourse.Friday]</td>
+                
             </tr>
-            }
-            @foreach (Lesson lesson in @ViewBag.Lessons)
-            {
-
             }
         </table>
 
