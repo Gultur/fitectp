@@ -27,6 +27,16 @@ namespace ContosoUniversity.Controllers
         public IHttpActionResult Get(int id)
         {
             Student student = db.Students.FirstOrDefault(s => s.ID == id);
+
+            if( student == null)
+            {
+                Dictionary<string,string> ErrorDict = new Dictionary<string,string> ();
+                ErrorDict["Status"] = "Error";
+                ErrorDict["Message"] = "There is no student with that Id";
+
+                return Ok(ErrorDict);
+            }
+
             StudentApiViewModel studentToSend = new StudentApiViewModel();
 
             List< Dictionary<string, string> > coursesList = new List< Dictionary<string, string> >();

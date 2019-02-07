@@ -20,6 +20,17 @@ namespace ContosoUniversity.Controllers
         public IHttpActionResult Get(int id)
         {
             Instructor instructor = db.Instructors.FirstOrDefault(s => s.ID == id);
+
+            if (instructor == null)
+            {
+                Dictionary<string, string> ErrorDict = new Dictionary<string, string>();
+                ErrorDict["Status"] = "Error";
+                ErrorDict["Message"] = "There is no instructor with that Id";
+
+                return Ok(ErrorDict);
+            }
+
+
             InstructorApiViewModel instructorToSend = new InstructorApiViewModel();
 
             instructorToSend.InstructorID = instructor.ID;

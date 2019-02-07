@@ -121,7 +121,8 @@ namespace ContosoUniversity.Controllers
                     return RedirectToAction(nameof(LessonController.Edit), "Lesson", new { newLesson.LessonID });
 
                 }
-
+                // Verifier la validité des nouveaux horaires
+                // method IsValid
                 Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == newLesson.LessonID);
                 lesson.StartHour = newLesson.StartHour;
                 lesson.EndHour = newLesson.EndHour;
