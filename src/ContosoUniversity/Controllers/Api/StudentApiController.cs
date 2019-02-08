@@ -41,13 +41,13 @@ namespace ContosoUniversity.Controllers
 
             StudentApiViewModel studentToSend = new StudentApiViewModel();
 
-            List< Dictionary<string, string> > coursesList = new List< Dictionary<string, string> >();
+            List<EnrollmentApiViewModel> coursesList = new List< EnrollmentApiViewModel  >();
 
             // TODO : Use  modelDto for the enrollments
             foreach(Enrollment enrollment in student.Enrollments)
             {
-                Dictionary<string, string> course = new Dictionary<string, string>();
-                course["courseId"] =  enrollment.CourseID.ToString();
+                EnrollmentApiViewModel course = new EnrollmentApiViewModel();
+                course.courseId =  enrollment.CourseID.ToString();
                 coursesList.Add(course);
             }
 

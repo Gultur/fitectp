@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\AssignedCourseData.cs" />
     <Compile Include="ViewModels\CreateLessonViewModel.cs" />
     <Compile Include="ViewModels\EditLessonViewModel.cs" />
+    <Compile Include="ViewModels\EnrollmentApiViewModel.cs" />
     <Compile Include="ViewModels\LessonApiViewModel.cs" />
     <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
     <Compile Include="ViewModels\InstructorApiViewModel.cs" />

@@ -15,7 +15,7 @@ namespace ContosoUniversity.ViewModels
         public string lastname { get; set; }
         public string firstname { get; set; }
         public string enrollmentDate { get; set; }
-        public List<Dictionary<string, string>> enrollments { get; set; }
+        public List<EnrollmentApiViewModel> enrollments { get; set; }
 
     }
 }
