@@ -21,6 +21,7 @@ namespace ContosoUniversity.Controllers
         {
             Instructor instructor = db.Instructors.FirstOrDefault(s => s.ID == id);
 
+            //TODO : send a not found and not a ok
             if (instructor == null)
             {
                 Dictionary<string, string> ErrorDict = new Dictionary<string, string>();

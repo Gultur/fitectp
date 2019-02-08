@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ContosoUniversity.BAL;
 
 namespace ContosoUniversity.Controllers
 {
@@ -39,6 +40,8 @@ namespace ContosoUniversity.Controllers
         }
 
         // POST: Lesson/CreateLesson
+        // TODO use un viewmodel to get the param
+        // TODO Move to layer  BAL 
         [HttpPost]
         public ActionResult CreateLesson(Enum.DayOfCourse Day, string Course, int StartHour, int EndHour, DateTime Launch)
         {
@@ -54,7 +57,11 @@ namespace ContosoUniversity.Controllers
                 else
                 {
                     int CourseId = int.Parse(Course);
+
+
                     // TODO : need to be in a differente layer, not in controller
+                    LessonBAL bal = new LessonBAL();
+                    //Lesson lesson = bal.CreateEntityLesson();
 
                     Lesson lesson = new Lesson();
                     // TODO : Instructor ID must be ID of the connected Instructor
@@ -66,12 +73,20 @@ namespace ContosoUniversity.Controllers
                     lesson.EndHour = EndHour;
                     lesson.Launch = Launch;
                     
+                    //if(bal.IsPlanningValid(lesson))
+                    //{
+                    //    TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                    //    return RedirectToAction(nameof(LessonController.Create), "Lesson");
+                    //}
 
                     if(!IsLessonValid(lesson))
                     {
                         TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
                         return RedirectToAction(nameof(LessonController.Create), "Lesson");
                     }
+
+
+                    //bal.AddLesson(lesson, db);
 
                     db.Lessons.Add(lesson);
 
@@ -175,10 +190,11 @@ namespace ContosoUniversity.Controllers
         {
             // We need to check if a lesson with the same Instructor existe between StartHour and EndHour
 
-            List<Lesson> lessonsInstructors = db.Lessons.Where(l => l.InstructorID == lesson.InstructorID).ToList();
-            List<Lesson> lessonsSameDay = lessonsInstructors.Where(l => l.Day == lesson.Day).ToList();
-            List<Lesson> lessonsSameHours = lessonsSameDay.Where(l => (l.StartHour >= lesson.StartHour && l.StartHour <= lesson.EndHour)
-                    || (l.EndHour <= lesson.EndHour && l.EndHour >= lesson.StartHour)).ToList();
+            // Obselete
+            //List<Lesson> lessonsInstructors = db.Lessons.Where(l => l.InstructorID == lesson.InstructorID).ToList();
+            //List<Lesson> lessonsSameDay = lessonsInstructors.Where(l => l.Day == lesson.Day).ToList();
+            //List<Lesson> lessonsSameHours = lessonsSameDay.Where(l => (l.StartHour >= lesson.StartHour && l.StartHour <= lesson.EndHour)
+            //        || (l.EndHour <= lesson.EndHour && l.EndHour >= lesson.StartHour)).ToList();
 
             int count = db.Lessons.Where(l => l.InstructorID == lesson.InstructorID)
                 .Where(l => l.Day == lesson.Day).Where(l => (l.StartHour >= lesson.StartHour && l.StartHour <= lesson.EndHour)

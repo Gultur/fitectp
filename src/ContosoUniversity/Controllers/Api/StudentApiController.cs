@@ -28,7 +28,9 @@ namespace ContosoUniversity.Controllers
         {
             Student student = db.Students.FirstOrDefault(s => s.ID == id);
 
-            if( student == null)
+            //TODO : send a not found and not a ok
+
+            if ( student == null)
             {
                 Dictionary<string,string> ErrorDict = new Dictionary<string,string> ();
                 ErrorDict["Status"] = "Error";
@@ -48,10 +50,11 @@ namespace ContosoUniversity.Controllers
                 coursesList.Add(course);
             }
 
+          
             studentToSend.Id = student.ID;
             studentToSend.FirstName = student.FirstMidName;
             studentToSend.LastName = student.LastName;
-            studentToSend.EnrollmentDate = student.EnrollmentDate;
+            studentToSend.EnrollmentDate = student.EnrollmentDate.ToString("yyyy-MM-dd");
             studentToSend.Enrollments = coursesList;
 
             return Ok(studentToSend);
