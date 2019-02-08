@@ -55,10 +55,11 @@ namespace ContosoUniversity.Tests.Controllers
         {
             #region Arrange Act
             ActionResult result = controllerToTest.Edit(9999999);
+            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+
             #endregion
             #region Assert
-            Assert.IsInstanceOf(typeof(RedirectResult), result);
-            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            //Assert.That(result is RedirectResult);
             Assert.AreEqual(routeResult.RouteValues["action"], "Index");
             #endregion
         }

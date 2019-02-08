@@ -151,6 +151,8 @@ namespace ContosoUniversity.Controllers
 
                 }
                 // Verifier la validité des nouveaux horaires
+                // TODO Move entitie code to another layer
+
                 // method IsValid
                 Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == newLesson.LessonID);
                 lesson.StartHour = newLesson.StartHour;

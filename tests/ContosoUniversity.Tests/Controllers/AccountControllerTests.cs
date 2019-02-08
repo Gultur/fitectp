@@ -47,7 +47,13 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Register_With_Existing_Login_Fail()
         {
-            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            #region Arrange
+            PersonRegisterViewModel newAccount1 = new PersonRegisterViewModel();
+
+            #endregion
+
+
+
             Assert.That(false);
         }
 
@@ -148,6 +154,62 @@ namespace ContosoUniversity.Tests.Controllers
             Person stu = this.dbContext.Students.FirstOrDefault(e => e.Login == newAccount.Login);
 
             Assert.That(stu != null && stu.LastName == "Stu");
+            #endregion
+        }
+
+        [Test]
+        public void Register_user_and_check_login_non_availaible_return_false()
+        {
+            #region Arrange
+            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            newAccount.FirstMidName = "Account";
+            newAccount.LastName = "Account";
+            newAccount.Roles = EnumRoles.Student;
+            newAccount.Login = "Account";
+            newAccount.Password = "Account";
+            newAccount.PasswordConfirmation = "Account";
+
+            string loginToTest = "Account";
+
+            BAL.StudentBAL balStudent = new BAL.StudentBAL();
+            BAL.PersonBAL balPerson = new BAL.PersonBAL();
+            #endregion
+
+            #region Act
+            balStudent.CreateStudentRegistering(newAccount, dbContext);
+            #endregion
+
+            #region Assert
+
+            Assert.That(balPerson.IsLoginValid(loginToTest, dbContext) == false);
+            #endregion
+        }
+
+        [Test]
+        public void Register_user_and_check_login_availaible_return_true()
+        {
+            #region Arrange
+            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            newAccount.FirstMidName = "Account";
+            newAccount.LastName = "Account";
+            newAccount.Roles = EnumRoles.Student;
+            newAccount.Login = "Account";
+            newAccount.Password = "Account";
+            newAccount.PasswordConfirmation = "Account";
+
+            string loginToTest = "OtherLogin";
+
+            BAL.StudentBAL balStudent = new BAL.StudentBAL();
+            BAL.PersonBAL balPerson = new BAL.PersonBAL();
+            #endregion
+
+            #region Act
+            balStudent.CreateStudentRegistering(newAccount, dbContext);
+            #endregion
+
+            #region Assert
+
+            Assert.That(balPerson.IsLoginValid(loginToTest, dbContext) == true);
             #endregion
         }
 
