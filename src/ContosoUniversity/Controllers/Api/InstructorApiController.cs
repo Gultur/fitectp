@@ -35,13 +35,13 @@ namespace ContosoUniversity.Controllers
             InstructorApiViewModel instructorToSend = new InstructorApiViewModel();
 
             instructorToSend.instructorId = instructor.ID;
-            instructorToSend.schedule = new List<InstructorApiViewModel.EnrollmentApiViewModel>();
+            instructorToSend.schedule = new List<LessonApiViewModel>();
 
             foreach (Course course in instructor.Courses)
             {
                 foreach(Lesson lesson in course.Lessons)
                 {
-                    InstructorApiViewModel.EnrollmentApiViewModel enrollment = new InstructorApiViewModel.EnrollmentApiViewModel();
+                    LessonApiViewModel enrollment = new LessonApiViewModel();
                     enrollment.courseId = course.CourseID;
                     enrollment.day = lesson.Day.ToString();
                     enrollment.startHour = lesson.StartHour.ToString() + "h00";

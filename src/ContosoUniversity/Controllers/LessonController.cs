@@ -86,7 +86,6 @@ namespace ContosoUniversity.Controllers
                         //Lesson lesson = bal.CreateEntityLesson();
 
                         Lesson lesson = new Lesson();
-                        // TODO : Instructor ID must be ID of the connected Instructor
 
                         lesson.InstructorID = userConnected.ID;
                         lesson.Course = db.Courses.FirstOrDefault(c => c.CourseID == CourseId);
@@ -130,7 +129,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Lesson/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
 
             if (id == null)
@@ -174,7 +173,7 @@ namespace ContosoUniversity.Controllers
                     return RedirectToAction(nameof(LessonController.Edit), "Lesson", new { newLesson.LessonID });
 
                 }
-                // Verifier la validité des nouveaux horaires
+
                 // TODO Move entitie code to another layer
 
                 // method IsValid
@@ -184,6 +183,13 @@ namespace ContosoUniversity.Controllers
                 lesson.Launch = newLesson.Launch;
                 lesson.Day = newLesson.Day;
 
+                // TODO the test need to check if the course already in the agenda is not the same !
+                // if the instructor only want to modify the hours
+                if (!IsLessonValid(lesson))
+                {
+                    TempData["EditError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                    return RedirectToAction(nameof(LessonController.Edit), "Lesson", new { lesson.ID });
+                }
 
                 db.SaveChanges();
 
