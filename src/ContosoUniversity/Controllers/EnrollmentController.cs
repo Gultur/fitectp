@@ -53,15 +53,29 @@ namespace ContosoUniversity.Controllers
         public ActionResult Create([Bind(Include = "CourseID,StudentID")] Enrollment enrollment)
         {
             Person student = (Person)Session["User"];
+            //Course already exists ?
+            if (CheckCourse(student.ID, enrollment.CourseID))
+            {
+                TempData["CreateError"] = $"You have already subscribed at this course";
+                return RedirectToAction(nameof(EnrollmentController.Create), "Enrollment");
+            }
+            //Many Occurences of courses?
+            //if (CheckPlanCourse(student.ID, enrollment.CourseID))
+            //{
+            //    TempData["CreateError"] = $"overlapping hours";
+            //    return RedirectToAction(nameof(EnrollmentController.Create), "Enrollment");
+            //}
+
+
             if (ModelState.IsValid)
             {
                 enrollment.StudentID = student.ID;
                 db.Enrollments.Add(enrollment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Student", new { id = student.ID });
             }
 
-
+            //Ce code à modifier après test cours existe ou chevauchement.
             return RedirectToAction("Details", "Student", new { id = enrollment.CourseID });
         }
 
@@ -145,5 +159,56 @@ namespace ContosoUniversity.Controllers
             }
             return Exist;
         }
+
+        //public bool CheckPlanCourse(int StudentID, int CourseID)
+        //{
+        //    //retrouver les horaies des cours déja inscrits pour l'étudiant ID
+        //    bool Chevauchement = false;
+        //    List<Enrollment> enrollments = db.Enrollments.Where(e => e.StudentID == StudentID).ToList();
+        //    List < Lesson > studentLessons= new List<Lesson>();
+        //    foreach(Enrollment enrollment in enrollments){
+
+
+        //        foreach(Course course in db.Courses.Where(c => c.CourseID == enrollment.CourseID).ToList())
+        //        {
+        //            studentLessons.AddRange(course.Lessons.ToList());
+        //        }
+
+        //    }
+
+        //    List<Lesson> courseLessons = db.Lessons.Where(l => l.CourseID == CourseID).ToList();
+
+
+        //if (CourseExist == null)
+        //{
+        //    Exist = false;
+        //}
+        //return Exist;
+
+
+
+
+        // retrouver les horaies des cours déja inscrits pour l'étudiant ID
+
+
+        // retrouver les horaies du cours à inscrire  CourseID
+
+
+        // Comparer les horaires pour détecter les chauvauchements.
+        //---------------------------------------------------------
+
+        // Boucle sur les horaires du cours à inscrire
+        //calculer hor_finN
+        //bouclle sur les horaires des cours deja inscrits
+        //calculer hor_finI
+        // si même jour 
+        // tester chevauchement
+        // si chevauchement, mettre à true la variable et sortir de la boucle
+        // fin
+
+
+
+
     }
 }
+

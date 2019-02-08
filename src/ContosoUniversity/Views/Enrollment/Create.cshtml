@@ -13,6 +13,12 @@
     <div class="form-horizontal">
         <h4>Enrollment</h4>
         <hr />
+
+        @if (TempData["CreateError"] != null)
+        {
+            <p class="text-danger"> @TempData["CreateError"] </p>
+        }
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CourseID, "CourseID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -22,21 +28,8 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.StudentID, "StudentID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Grade, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.Grade, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Grade, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -47,5 +40,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.EnrollmentID })*@
 </div>
