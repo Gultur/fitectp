@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201902060900317_LessonWithDate.Designer.cs">
       <DependentUpon>201902060900317_LessonWithDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902071905327_TestMigration.cs" />
+    <Compile Include="Migrations\201902071905327_TestMigration.Designer.cs">
+      <DependentUpon>201902071905327_TestMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
@@ -336,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902060900317_LessonWithDate.resx">
       <DependentUpon>201902060900317_LessonWithDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071905327_TestMigration.resx">
+      <DependentUpon>201902071905327_TestMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

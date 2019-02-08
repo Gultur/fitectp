@@ -44,12 +44,12 @@ namespace ContosoUniversity.Controllers
                         if (newAccount.Roles == EnumRoles.Student)
                         {
                             StudentBAL bal = new StudentBAL();
-                            bal.CreateStudentRegistering(newAccount);
+                            bal.CreateStudentRegistering(newAccount, db);
                         }
                         else
                         {
                             InstructorBAL bal = new InstructorBAL();
-                            bal.CreateInstructorRegistering(newAccount);
+                            bal.CreateInstructorRegistering(newAccount, db);
                         }
 
                         Session["User"] = db.People.FirstOrDefault(p => p.Login == newAccount.Login);

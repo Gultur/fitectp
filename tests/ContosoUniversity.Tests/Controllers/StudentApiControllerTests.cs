@@ -18,13 +18,13 @@ namespace ContosoUniversity.Tests.Controllers
         private SchoolContext dbContext;
 
         [Test]
-        public void Call_Api_With_BadID_Send_Error_Message()
+        public void Call_Student_Api_With_BadID_Send_Error_Message()
         {
             Assert.That(false);
         }
 
         [Test]
-        public void Call_Api_With_GoodID_Success()
+        public void Call_Student_Api_With_GoodID_Success()
         {
             Assert.That(false);
         }

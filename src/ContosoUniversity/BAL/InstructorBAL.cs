@@ -18,11 +18,11 @@ namespace ContosoUniversity.BAL
             set { db = value; }
         }
 
-        public void CreateInstructorRegistering(PersonRegisterViewModel newAccount)
+        public void CreateInstructorRegistering(PersonRegisterViewModel newAccount, SchoolContext db)
         {
             try
             {
-                using (this.DbContext)
+                using (this.db)
                 {
                     Instructor newInstructor = new Instructor();
                     newInstructor.LastName = newAccount.LastName;
