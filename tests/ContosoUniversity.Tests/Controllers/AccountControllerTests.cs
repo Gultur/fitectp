@@ -47,7 +47,13 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Register_With_Existing_Login_Fail()
         {
-            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            #region Arrange
+            PersonRegisterViewModel newAccount1 = new PersonRegisterViewModel();
+
+            #endregion
+
+
+
             Assert.That(false);
         }
 
@@ -55,7 +61,7 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Register_Student_With_Bad_Password_Fail()
         {
-
+            // Arrange
             //PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
             //newAccount.FirstMidName = "Stu";
             //newAccount.LastName = "Stu";
@@ -64,11 +70,13 @@ namespace ContosoUniversity.Tests.Controllers
             //newAccount.Password = "Stustu";
             //newAccount.PasswordConfirmation = "Jemesuistrompe";
 
+            //Act
             //BAL.StudentBAL bal = new BAL.StudentBAL();
             //bal.CreateStudentRegistering(newAccount, dbContext);
 
             //Student stu = this.dbContext.Students.FirstOrDefault(e => e.Login == newAccount.Login);
 
+            //Assert
             //Assert.That(stu == null);
 
             Assert.That(false);
@@ -78,7 +86,7 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Register_Instructor_With_Bad_Password_Fail()
         {
-
+            //Arrange
             //PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
             //newAccount.FirstMidName = "Inst";
             //newAccount.LastName = "Inst";
@@ -87,11 +95,13 @@ namespace ContosoUniversity.Tests.Controllers
             //newAccount.Password = "InstInst";
             //newAccount.PasswordConfirmation = "Jemesuistrompe";
 
+            //ACt
             //BAL.InstructorBAL bal = new BAL.InstructorBAL();
             //bal.CreateInstructorRegistering(newAccount, dbContext);
 
             //Instructor inst = this.dbContext.Instructors.FirstOrDefault(e => e.Login == newAccount.Login);
 
+            //Assert
             //Assert.That(inst == null);
 
             Assert.That(false);
@@ -122,6 +132,7 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Register_Student_With_Non_Existing_Login_And_Good_Password_Success()
         {
+            #region Arrange
             PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
             newAccount.FirstMidName = "Stu";
             newAccount.LastName = "Stu";
@@ -131,11 +142,75 @@ namespace ContosoUniversity.Tests.Controllers
             newAccount.PasswordConfirmation = "Stustu";
 
             BAL.StudentBAL bal = new BAL.StudentBAL();
+            #endregion
+
+            #region Act
             bal.CreateStudentRegistering(newAccount, dbContext);
+            #endregion
+
+            #region Assert
+
 
             Person stu = this.dbContext.Students.FirstOrDefault(e => e.Login == newAccount.Login);
 
             Assert.That(stu != null && stu.LastName == "Stu");
+            #endregion
+        }
+
+        [Test]
+        public void Register_user_and_check_login_non_availaible_return_false()
+        {
+            #region Arrange
+            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            newAccount.FirstMidName = "Account";
+            newAccount.LastName = "Account";
+            newAccount.Roles = EnumRoles.Student;
+            newAccount.Login = "Account";
+            newAccount.Password = "Account";
+            newAccount.PasswordConfirmation = "Account";
+
+            string loginToTest = "Account";
+
+            BAL.StudentBAL balStudent = new BAL.StudentBAL();
+            BAL.PersonBAL balPerson = new BAL.PersonBAL();
+            #endregion
+
+            #region Act
+            balStudent.CreateStudentRegistering(newAccount, dbContext);
+            #endregion
+
+            #region Assert
+
+            Assert.That(balPerson.IsLoginValid(loginToTest, dbContext) == false);
+            #endregion
+        }
+
+        [Test]
+        public void Register_user_and_check_login_availaible_return_true()
+        {
+            #region Arrange
+            PersonRegisterViewModel newAccount = new PersonRegisterViewModel();
+            newAccount.FirstMidName = "Account";
+            newAccount.LastName = "Account";
+            newAccount.Roles = EnumRoles.Student;
+            newAccount.Login = "Account";
+            newAccount.Password = "Account";
+            newAccount.PasswordConfirmation = "Account";
+
+            string loginToTest = "OtherLogin";
+
+            BAL.StudentBAL balStudent = new BAL.StudentBAL();
+            BAL.PersonBAL balPerson = new BAL.PersonBAL();
+            #endregion
+
+            #region Act
+            balStudent.CreateStudentRegistering(newAccount, dbContext);
+            #endregion
+
+            #region Assert
+
+            Assert.That(balPerson.IsLoginValid(loginToTest, dbContext) == true);
+            #endregion
         }
 
 
@@ -143,17 +218,25 @@ namespace ContosoUniversity.Tests.Controllers
         [Test]
         public void Hashing_Same_word_Twice_Result_Two_Identical_Sha()
         {
+            #region Arrange Act
             string pass1 = Services.HashService.GenerateSHA256String("word");
             string pass2 = Services.HashService.GenerateSHA256String("word");
+            #endregion
+            #region Assert
             Assert.That(pass1 == pass2);
+            #endregion
         }
 
         [Test]
         public void Hashing_Different_word_Result_Two_Different_Sha()
         {
+            #region Arrange Act
             string pass1 = Services.HashService.GenerateSHA256String("firstword");
             string pass2 = Services.HashService.GenerateSHA256String("otherword");
+            #endregion
+            #region Assert
             Assert.That(pass1 != pass2);
+            #endregion
         }
     }
 }

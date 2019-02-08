@@ -12,6 +12,7 @@ using System.Text;
 using ContosoUniversity.Enum;
 using ContosoUniversity.BAL;
 using ContosoUniversity.Services;
+using ContosoUniversity.BAL;
 
 namespace ContosoUniversity.Controllers
 {
@@ -38,21 +39,25 @@ namespace ContosoUniversity.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (IsLoginValid(newAccount.Login))
+                    PersonBAL balPerson = new PersonBAL();
+
+                    if (balPerson.IsLoginValid(newAccount.Login,db))
                     {
 
                         if (newAccount.Roles == EnumRoles.Student)
                         {
-                            StudentBAL bal = new StudentBAL();
-                            bal.CreateStudentRegistering(newAccount, db);
+                            StudentBAL balStudent = new StudentBAL();
+                            balStudent.CreateStudentRegistering(newAccount, db);
                         }
                         else
                         {
-                            InstructorBAL bal = new InstructorBAL();
-                            bal.CreateInstructorRegistering(newAccount, db);
+                            InstructorBAL balInstructor = new InstructorBAL();
+                            balInstructor.CreateInstructorRegistering(newAccount, db);
                         }
-
-                        Session["User"] = db.People.FirstOrDefault(p => p.Login == newAccount.Login);
+                        // Move searching of person in an other layer
+                        //  getPersonByLogin(newAccount.Login)
+                        
+                        Session["User"] = balPerson.GetPersonByLogin(newAccount.Login, db);
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                     else
@@ -85,7 +90,10 @@ namespace ContosoUniversity.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Person personConnecting = this.db.People.FirstOrDefault(p => p.Login == logInfos.Login);
+                    // Move comparaison, and searching of person in an other layer
+                    PersonBAL balPerson = new PersonBAL();
+                    Person personConnecting = balPerson.GetPersonByLogin(logInfos.Login,db);
+                    // Move comparaison in an other laver
                     if (personConnecting != null && personConnecting.Password == HashService.GenerateSHA256String(logInfos.Password))
                     {
                         Session["User"] = personConnecting;
@@ -116,12 +124,13 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        private bool IsLoginValid(string login)
-        {
-            Person personConnecting = this.db.People.FirstOrDefault(p => p.Login == login);
-            return (personConnecting != null) ? false : true;
+        ////TODO Move to Buisiness Layer
+        //private bool IsLoginValid(string login)
+        //{
+        //    Person personConnecting = this.db.People.FirstOrDefault(p => p.Login == login);
+        //    return (personConnecting != null) ? false : true;
 
-        }
+        //}
 
     }
 }

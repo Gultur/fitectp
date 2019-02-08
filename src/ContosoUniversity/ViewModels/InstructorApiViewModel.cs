@@ -8,15 +8,15 @@ namespace ContosoUniversity.ViewModels
 {
     public class InstructorApiViewModel
     {
-        public int InstructorID { get; set; }
-        public List<EnrollmentApiViewModel> Schedule { get; set; }
+        public int instructorId { get; set; }
+        public List<EnrollmentApiViewModel> schedule { get; set; }
 
         public class EnrollmentApiViewModel
         {
-            public int CourseId { get; set; }
-            public string Day { get; set; }
-            public int StartHour { get; set; }
-            public int Duration { get; set; }
+            public int courseId { get; set; }
+            public string day { get; set; }
+            public string startHour { get; set; }
+            public int duration { get; set; }
         }
     }
 }

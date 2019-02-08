@@ -11,11 +11,11 @@ namespace ContosoUniversity.ViewModels
 {
     public class StudentApiViewModel
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime EnrollmentDate { get; set; }
-        public List<Dictionary<string, string>> Enrollments { get; set; }
+        public int id { get; set; }
+        public string lastname { get; set; }
+        public string firstname { get; set; }
+        public string enrollmentDate { get; set; }
+        public List<Dictionary<string, string>> enrollments { get; set; }
 
     }
 }
