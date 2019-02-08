@@ -57,7 +57,7 @@ namespace ContosoUniversity.Controllers
                     }
                     else
                     {
-                        TempData["LoginError"] = "This login is not available";
+                        TempData["LoginError"] = "This login already exists";
                         return RedirectToAction(nameof(AccountController.Register), "Account");
                     }
                 }
@@ -95,7 +95,7 @@ namespace ContosoUniversity.Controllers
                     else
                     {
                         Session["User"] = null;
-                        TempData["LoginError"] = "Invalid Credentials";
+                        TempData["LoginError"] = "Invalid login or password";
                         return RedirectToAction(nameof(AccountController.Login), "Account");
                     }
                 }
@@ -106,7 +106,7 @@ namespace ContosoUniversity.Controllers
                 ModelState.AddModelError("Error", "Error");
             }
             Session["User"] = null;
-            TempData["LoginError"] = "Invalid Credentials";
+            TempData["LoginError"] = "Invalid login or password"";
             return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
