@@ -31,7 +31,7 @@ namespace ContosoUniversity.Tests.Controllers
             var awaited_response = JsonConvert.SerializeObject(json);
             
 
-            Assert.That(api_response == awaited_response);
+            Assert.That(api_response.ToString() == awaited_response);
         }
 
         [Test]
