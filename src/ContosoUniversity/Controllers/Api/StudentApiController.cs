@@ -43,19 +43,20 @@ namespace ContosoUniversity.Controllers
 
             List< Dictionary<string, string> > coursesList = new List< Dictionary<string, string> >();
 
+            // TODO : Use  modelDto for the enrollments
             foreach(Enrollment enrollment in student.Enrollments)
             {
                 Dictionary<string, string> course = new Dictionary<string, string>();
-                course["CourseID"] =  enrollment.CourseID.ToString();
+                course["courseId"] =  enrollment.CourseID.ToString();
                 coursesList.Add(course);
             }
 
           
-            studentToSend.Id = student.ID;
-            studentToSend.FirstName = student.FirstMidName;
-            studentToSend.LastName = student.LastName;
-            studentToSend.EnrollmentDate = student.EnrollmentDate.ToString("yyyy-MM-dd");
-            studentToSend.Enrollments = coursesList;
+            studentToSend.id = student.ID;
+            studentToSend.firstname = student.FirstMidName;
+            studentToSend.lastname = student.LastName;
+            studentToSend.enrollmentDate = student.EnrollmentDate.ToString("yyyy-MM-dd");
+            studentToSend.enrollments = coursesList;
 
             return Ok(studentToSend);
         }
