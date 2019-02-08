@@ -114,7 +114,7 @@ namespace ContosoUniversity.Controllers
                 ModelState.AddModelError("Error", "Error");
             }
             Session["User"] = null;
-            TempData["LoginError"] = "Invalid login or password"";
+            TempData["LoginError"] = "Invalid login or password";
             return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 

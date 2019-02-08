@@ -8,9 +8,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.BAL;
+using ContosoUniversity.Filters;
 
 namespace ContosoUniversity.Controllers
 {
+    [AuthFilter(Role = "Instructor")]
     public class LessonController : Controller
     {
         private SchoolContext db = new SchoolContext();
@@ -29,7 +31,15 @@ namespace ContosoUniversity.Controllers
         // GET: Lesson/Details/5
         public ActionResult Details(int id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
+            if(lesson == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(lesson);
         }
 
@@ -50,63 +60,71 @@ namespace ContosoUniversity.Controllers
         [HttpPost]
         public ActionResult CreateLesson(Enum.DayOfCourse Day, string Course, int StartHour, int EndHour, DateTime Launch)
         {
-            
-            try
+            if (Session["User"] == null)
             {
-                if (StartHour >= EndHour)
+                TempData["CreateError"] = "No user connected";
+                return RedirectToAction(nameof(LessonController.Create), "Lesson");
+            }
+            else
+            {
+                Person userConnected = (Person)Session["User"];
+                try
                 {
-                    TempData["CreateError"] = "Endhour must be after StartHour";
-                    return RedirectToAction(nameof(LessonController.Create), "Lesson");
-
-                }
-                else
-                {
-                    int CourseId = int.Parse(Course);
-
-
-                    // TODO : need to be in a differente layer, not in controller
-                    LessonBAL bal = new LessonBAL();
-                    //Lesson lesson = bal.CreateEntityLesson();
-
-                    Lesson lesson = new Lesson();
-                    // TODO : Instructor ID must be ID of the connected Instructor
-
-                    lesson.InstructorID = 10;
-                    lesson.Course = db.Courses.FirstOrDefault(c => c.CourseID == CourseId);
-                    lesson.Day = Day;
-                    lesson.StartHour = StartHour;
-                    lesson.EndHour = EndHour;
-                    lesson.Launch = Launch;
-                    
-                    //if(bal.IsPlanningValid(lesson))
-                    //{
-                    //    TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
-                    //    return RedirectToAction(nameof(LessonController.Create), "Lesson");
-                    //}
-
-                    if(!IsLessonValid(lesson))
+                    if (StartHour >= EndHour)
                     {
-                        TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                        TempData["CreateError"] = "Endhour must be after StartHour";
                         return RedirectToAction(nameof(LessonController.Create), "Lesson");
+
+                    }
+                    else
+                    {
+                        int CourseId = int.Parse(Course);
+
+
+                        // TODO : need to be in a differente layer, not in controller
+                        LessonBAL bal = new LessonBAL();
+                        //Lesson lesson = bal.CreateEntityLesson();
+
+                        Lesson lesson = new Lesson();
+                        // TODO : Instructor ID must be ID of the connected Instructor
+
+                        lesson.InstructorID = userConnected.ID;
+                        lesson.Course = db.Courses.FirstOrDefault(c => c.CourseID == CourseId);
+                        lesson.Day = Day;
+                        lesson.StartHour = StartHour;
+                        lesson.EndHour = EndHour;
+                        lesson.Launch = Launch;
+
+                        //if(bal.IsPlanningValid(lesson))
+                        //{
+                        //    TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                        //    return RedirectToAction(nameof(LessonController.Create), "Lesson");
+                        //}
+
+                        if (!IsLessonValid(lesson))
+                        {
+                            TempData["CreateError"] = $"You have already a course between {lesson.StartHour} h and {lesson.EndHour} h {lesson.Day}";
+                            return RedirectToAction(nameof(LessonController.Create), "Lesson");
+                        }
+
+
+                        //bal.AddLesson(lesson, db);
+
+                        db.Lessons.Add(lesson);
+
+
+                        db.SaveChanges();
+                        return RedirectToAction(nameof(LessonController.Index), "Lesson");
                     }
 
 
-                    //bal.AddLesson(lesson, db);
 
-                    db.Lessons.Add(lesson);
+                }
+                catch (Exception)
+                {
 
-
-                    db.SaveChanges();
-                    return RedirectToAction(nameof(LessonController.Index), "Lesson");
-                }  
-
-                
-
-            }
-            catch (Exception)
-            {
-
-                ModelState.AddModelError("Error", "Error");
+                    ModelState.AddModelError("Error", "Error");
+                }
             }
             return RedirectToAction(nameof(LessonController.Index), "Lesson");
         }
@@ -114,9 +132,18 @@ namespace ContosoUniversity.Controllers
         // GET: Lesson/Edit/5
         public ActionResult Edit(int id)
         {
-            Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
 
-            if (lesson != null)
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
+            if (lesson == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            else
             {
 
                 EditLessonViewModel model = new EditLessonViewModel();
@@ -130,10 +157,7 @@ namespace ContosoUniversity.Controllers
 
                 return View(model);
             }
-            else
-            {
-                return RedirectToAction("Index");
-            }
+
         }
 
         // POST: Lesson/Edit/5
@@ -159,6 +183,8 @@ namespace ContosoUniversity.Controllers
                 lesson.EndHour = newLesson.EndHour;
                 lesson.Launch = newLesson.Launch;
                 lesson.Day = newLesson.Day;
+
+
                 db.SaveChanges();
 
                 return RedirectToAction(nameof(LessonController.Details), "Lesson", new { lesson.ID});

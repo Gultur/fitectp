@@ -25,6 +25,7 @@ namespace ContosoUniversity.Controllers
 
                 if(user is Student)
                 {
+                    //TODO agend for student !
                     return View("IndexStudent");
                 }
                 else if(user is Instructor)
@@ -35,14 +36,14 @@ namespace ContosoUniversity.Controllers
                     Dictionary<int, Dictionary<DayOfCourse, string>> agenda = new Dictionary<int, Dictionary<DayOfCourse, string>>();
 
 
-
+                    // TODO Move some instruction in other layer
                     for (int hour = 8; hour <= 19; hour++)
                     {
                         Dictionary<DayOfCourse, string> HourDay = new Dictionary<DayOfCourse, string>();
                         foreach(DayOfCourse day in (DayOfCourse[]) System.Enum.GetValues(typeof(DayOfCourse)))
                         {
                             string libelle ="";
-                            Lesson lesson = db.Lessons.Where(l => (l.InstructorID == 10 && l.Day == day))
+                            Lesson lesson = db.Lessons.Where(l => (l.InstructorID == user.ID && l.Day == day))
                                 .Where(l => (l.StartHour == hour || l.StartHour < hour && l.EndHour > hour))
                                 .FirstOrDefault();
                             if(lesson != null)

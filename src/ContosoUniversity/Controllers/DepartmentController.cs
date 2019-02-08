@@ -10,9 +10,11 @@ using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using System.Data.Entity.Infrastructure;
+using ContosoUniversity.Filters;
 
 namespace ContosoUniversity.Controllers
 {
+    [AuthFilter(Role = "Instructor")]
     public class DepartmentController : Controller
     {
         private SchoolContext db = new SchoolContext();
