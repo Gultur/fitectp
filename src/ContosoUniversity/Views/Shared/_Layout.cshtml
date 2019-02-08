@@ -39,36 +39,38 @@
                     <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
                     <li>@Html.ActionLink("Departments", "Index", "Department")</li>
                     <li>@Html.ActionLink("Lessons", "Index", "Lesson")</li>
+                    @*Move to a partialView*@
                     @if (Session["User"] == null)
                     {
                         <li>@Html.ActionLink("Log In", "Login", "Account")</li>
                         <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                    
+
                     }
 
                     else
                     {
-                    
-                    Person user = (Person)Session["User"];
-                    <span class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span> @user.FirstMidName
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Log Out", "Logout", "Account")</li>
-                            @if (user is Student)
-                            {
-                                <li>@Html.ActionLink("Profil", "Details", "Student", new { id = user.ID }, null)</li>
 
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Profil", "Details", "Instructor", new { id = user.ID }, null)</li>
-                            }
-                        </ul>
-                    </span>
-                }
+                        Person user = (Person)Session["User"];
+                        <span class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> @user.FirstMidName
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Log Out", "Logout", "Account")</li>
+                                @*Move to a partialView*@
+                                @if (user is Student)
+                                {
+                                    <li>@Html.ActionLink("Profil", "Details", "Student", new { id = user.ID }, null)</li>
+
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Profil", "Details", "Instructor", new { id = user.ID }, null)</li>
+                                }
+                            </ul>
+                        </span>
+                    }
                 </ul>
                 </div>
         </div>

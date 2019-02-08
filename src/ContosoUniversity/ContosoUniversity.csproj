@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BAL\InstructorBAL.cs" />
     <Compile Include="BAL\LessonBal.cs" />
+    <Compile Include="BAL\PersonBal.cs" />
     <Compile Include="BAL\StudentBAL.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
