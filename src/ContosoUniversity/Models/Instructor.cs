@@ -13,6 +13,7 @@ namespace ContosoUniversity.Models
         public DateTime HireDate { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
         public virtual OfficeAssignment OfficeAssignment { get; set; }
     }
 }
