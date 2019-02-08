@@ -17,6 +17,16 @@ namespace ContosoUniversity.Tests.Controllers
         private LessonController controllerToTest;
         private SchoolContext dbContext;
 
+        [SetUp]
+        public void Initialize()
+        {
+            httpContext = new MockHttpContextWrapper();
+            controllerToTest = new LessonController();
+            controllerToTest.ControllerContext = new ControllerContext(httpContext.Context.Object, new RouteData(), controllerToTest);
+            dbContext = new DAL.SchoolContext(this.ConnectionString);
+            controllerToTest.DbContext = dbContext;
+        }
+
         [Test]
         public void Create_Valid_Lesson_Success()
         {
@@ -38,6 +48,31 @@ namespace ContosoUniversity.Tests.Controllers
         public void Edit_Lesson_With_Invalid_Value_Fail()
         {
             Assert.That(false);
+        }
+
+        [Test]
+        public void Edit_Non_Existing_Lesson_redirect()
+        {
+            #region Arrange Act
+            ActionResult result = controllerToTest.Edit(9999999);
+            #endregion
+            #region Assert
+            Assert.IsInstanceOf(typeof(RedirectResult), result);
+            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+            #endregion
+        }
+
+        [Test]
+        public void Edit_Existing_Lesson_return_View()
+        {
+            #region Arrange Act
+            ActionResult result = controllerToTest.Details(1);
+
+            #endregion
+            #region Assert
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+            #endregion
         }
 
         // Testing if an Instructor can create a lesson when he is not available at lesson hours

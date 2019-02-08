@@ -14,6 +14,11 @@ namespace ContosoUniversity.Controllers
     public class LessonController : Controller
     {
         private SchoolContext db = new SchoolContext();
+        public SchoolContext DbContext
+        {
+            get { return db; }
+            set { db = value; }
+        }
 
         // GET: Lesson
         public ActionResult Index()
@@ -110,16 +115,25 @@ namespace ContosoUniversity.Controllers
         public ActionResult Edit(int id)
         {
             Lesson lesson = db.Lessons.FirstOrDefault(l => l.ID == id);
-            EditLessonViewModel model = new EditLessonViewModel();
-            ViewBag.CourseName = lesson.Course.Title;
-            model.LessonID = lesson.ID;
-            model.CourseID = lesson.Course.CourseID;
-            model.Launch = lesson.Launch;
-            model.Day = lesson.Day;
-            model.StartHour = lesson.StartHour;
-            model.EndHour = lesson.EndHour;
-        
-            return View(model);
+
+            if (lesson != null)
+            {
+
+                EditLessonViewModel model = new EditLessonViewModel();
+                ViewBag.CourseName = lesson.Course.Title;
+                model.LessonID = lesson.ID;
+                model.CourseID = lesson.Course.CourseID;
+                model.Launch = lesson.Launch;
+                model.Day = lesson.Day;
+                model.StartHour = lesson.StartHour;
+                model.EndHour = lesson.EndHour;
+
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Lesson/Edit/5

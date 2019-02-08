@@ -116,6 +116,7 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        //TODO Move to Buisiness Layer
         private bool IsLoginValid(string login)
         {
             Person personConnecting = this.db.People.FirstOrDefault(p => p.Login == login);
