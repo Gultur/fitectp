@@ -23,11 +23,8 @@ namespace ContosoUniversity.BAL
         {
             try
             {
-                using (db)
-                {
                     Person person = db.People.FirstOrDefault(p => p.Login == login);
                     return person;
-                }
             }
             catch (Exception)
             {
